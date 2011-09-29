@@ -1,0 +1,9 @@
+<?php
+
+$projects = array();
+
+$projects[0] = new Sismo\Project('Project D Dist', __DIR__);
+$projects[1] = new Sismo\Project('Project D Dist@develop', __DIR__);
+$projects[1]->setBranch('develop');
+
+return $projects;

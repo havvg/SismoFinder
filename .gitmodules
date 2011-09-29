@@ -1,0 +1,9 @@
+[submodule "vendor/Symfony/Component/ClassLoader"]
+	path = vendor/Symfony/Component/ClassLoader
+	url = https://github.com/symfony/ClassLoader
+[submodule "vendor/Symfony/Component/Finder"]
+	path = vendor/Symfony/Component/Finder
+	url = https://github.com/symfony/Finder
+[submodule "vendor/Sismo"]
+	path = vendor/Sismo
+	url = git://github.com/fabpot/Sismo.git
