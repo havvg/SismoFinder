@@ -29,7 +29,7 @@ class Finder
     /**
      * Constructor.
      *
-     * @uses SismoFinder::addWorkspaceDirectory
+     * @uses SismoFinder::addWorkspace
      *
      * @param array $workspaces A list of workspace directories to use.
      */
