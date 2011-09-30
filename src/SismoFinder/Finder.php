@@ -74,7 +74,7 @@ class Finder
         if (count($this->workspaces)) {
             foreach ($this->workspaces as $eachWorkspace) {
                 $projectDirectories = sfFinder::create()->directories()
-                    ->depth('< 2')
+                    ->depth('< 1')
                     ->in($eachWorkspace)
                 ;
 
@@ -111,10 +111,18 @@ class Finder
                 ->in($dir->getPathname())
             ;
 
-            foreach ($files as $eachFile) {
-                // The first file found, is fine, the list is ordered.
-                $project = include $eachFile->getPathname();
-                break 2;
+            try {
+                foreach ($files as $eachFile) {
+                    // The first file found, is fine, the list is ordered.
+                    $project = include $eachFile->getPathname();
+                    break 2;
+                }
+            } catch (\UnexpectedValueException $e) {
+                // @codeCoverageIgnoreStart
+                if (!(false !== strpos($e->getMessage(), 'Permission denied'))) {
+                    throw $e;
+                }
+                // @codeCoverageIgnoreEnd
             }
         }
 
