@@ -8,6 +8,13 @@ Thus there is no need to setup each new project within Sismo.
 
 The configuration for Sismo is shared among the collaborators of the project.
 
+## Configuration
+
+`SismoFinder` by default looks for two files `sismo.config.php` and if not found `sismo.config.php.dist`.
+
+* Package the `sismo.config.php.dist` within your project.
+* Add the `sismo.config.php` to your `.gitignore`.
+
 ## Usage
 
 An example workspace at `/Users/havvg/Web Development/`.
