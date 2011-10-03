@@ -8,6 +8,15 @@ Thus there is no need to setup each new project within Sismo.
 
 The configuration for Sismo is shared among the collaborators of the project.
 
+## Installation
+
+```sh
+mkdir sismoFinder
+git clone https://github.com/havvg/SismoFinder.git .
+git submodule init
+git submodule update --recursive
+```
+
 ## Configuration
 
 `SismoFinder` by default looks for two files `sismo.config.php` and if not found `sismo.config.php.dist`.
