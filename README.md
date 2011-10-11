@@ -105,8 +105,3 @@ $grace->addNotifier($notifier);
  
 return $grace;
 ```
-
-Contributors:
-
-- Toni Uebernickel
-- Luis Cordova cordoval@gmail.com
