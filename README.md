@@ -47,17 +47,17 @@ return $finder->getProjects();
 ```php
 <?php // ~/.sismo/config.php
 
-// create a Growl notifier (for OSX)
-$notifier = new Sismo\GrowlNotifier('');
-
-// create a DBus notifier (for Linux)
-$notifier = new Sismo\DBusNotifier();
-
 $loader = new Symfony\Component\ClassLoader\UniversalClassLoader();
 $loader->registerNamespaces(array(
     'SismoFinder' => '/Users/havvg/Web Development/SismoFinder/src',
 ));
 $loader->register();
+
+// create a Growl notifier (for OSX)
+$notifier = new Sismo\GrowlNotifier('');
+
+// create a DBus notifier (for Linux)
+$notifier = new Sismo\DBusNotifier();
 
 $finder = new \SismoFinder\Finder();
 $finder->addWorkspace('/Users/havvg/Web Development');
@@ -80,7 +80,8 @@ This is a very basic example, how a distributed project configuration may look l
 return new Sismo\Project('Your Project (local)', __DIR__);
 ```
 
-For an example of a more elaborated custom configuration see below:
+For an example of a more elaborated custom configuration see below,
+see [Sismo README](https://github.com/fabpot/Sismo/blob/master/README.rst) for more details.
 
 ```php
 <?php // /path/to/workspace/your-project/sismo.config.php
@@ -93,7 +94,7 @@ $grace = new Sismo\Project($graceName);
 $grace->setRepository('/home/cordoval/sites-2/'.$graceName);
 $grace->setBranch('develop');
 $grace->setCommand('/home/cordoval/sites-2/'.$graceName.'/sismo'); // custom command script
-$grace->setSlug($graciaName);
+$grace->setSlug($graceName);
 $grace->setUrlPattern('http://localhost:8000/?p=.git;a=commitdiff;h=%commit%'); // for git instaweb
 $grace->addNotifier($notifier);
  
