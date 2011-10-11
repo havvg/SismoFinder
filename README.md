@@ -10,13 +10,7 @@ The configuration for Sismo is shared among the collaborators of the project.
 
 ## Installation
 
-```sh
-cd /Users/havvg/Web Development/ // or whatever your projects folder
-git clone https://github.com/havvg/SismoFinder.git sismoFinder
-cd sismoFinder
-git submodule init
-git submodule update --recursive
-```
+See [INSTALL.md](INSTALL.md) for instructions on how to install `SismoFinder`.
 
 ## Configuration
 
