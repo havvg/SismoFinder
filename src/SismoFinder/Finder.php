@@ -106,7 +106,7 @@ class Finder
 
         foreach (self::$configFiles as $eachConfigurationFile) {
             $files = sfFinder::create()->files()
-                ->depth('< 2')
+                ->depth('< 1')
                 ->name($eachConfigurationFile)
                 ->in($dir->getPathname())
             ;
