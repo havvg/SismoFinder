@@ -1,5 +1,7 @@
 # SismoFinder
 
+[![Build Status](https://secure.travis-ci.org/havvg/SismoFinder.png)](http://travis-ci.org/havvg/SismoFinder)
+
 ``SismoFinder`` is a simple wrapper around the configuration file of ``Sismo``.
 There are two major benefits when using SismoFinder as a replacement or addition to your Sismo configuration file.
 
