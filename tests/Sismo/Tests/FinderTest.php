@@ -121,7 +121,7 @@ class FinderTest extends \PHPUnit_Framework_TestCase
         }
 
         foreach ($expected as $eachProjectName) {
-            $this->assertTrue(in_array($eachProjectName, $projects));
+            $this->assertTrue(in_array($eachProjectName, $projects), sprintf('The project "%s" has been found.', $eachProjectName));
         }
     }
 }
