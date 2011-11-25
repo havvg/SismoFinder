@@ -58,9 +58,11 @@ class FinderTest extends \PHPUnit_Framework_TestCase
         $this->assertInternalType('array', $projects);
         $this->assertEquals(3, count($projects));
 
-        $this->assertEquals('Project A Dist', $projects[0]->getName());
-        $this->assertEquals('Project B', $projects[1]->getName());
-        $this->assertEquals('Project C', $projects[2]->getName());
+        $this->assertProjects(array(
+            'Project A Dist',
+            'Project B',
+            'Project C',
+        ), $projects);
     }
 
     /**
@@ -86,8 +88,10 @@ class FinderTest extends \PHPUnit_Framework_TestCase
 
         $projects = $finder->getProjects();
 
-        $this->assertEquals('Project D Dist', $projects[0]->getName());
-        $this->assertEquals('Project D Dist@develop', $projects[1]->getName());
+        $this->assertProjects(array(
+            'Project D Dist',
+            'Project D Dist@develop',
+        ), $projects);
     }
 
     /**
@@ -107,5 +111,17 @@ class FinderTest extends \PHPUnit_Framework_TestCase
         $this->assertEmpty($projects);
 
         rmdir($tmp);
+    }
+
+    protected function assertProjects($expected, $actual)
+    {
+        $projects = array();
+        foreach ($actual as $eachProject) {
+            $projects[] = $eachProject->getName();
+        }
+
+        foreach ($expected as $eachProjectName) {
+            $this->assertTrue(in_array($eachProjectName, $projects));
+        }
     }
 }
