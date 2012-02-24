@@ -56,7 +56,7 @@ class FinderTest extends \PHPUnit_Framework_TestCase
 
         $this->assertNotEmpty($projects);
         $this->assertInternalType('array', $projects);
-        $this->assertEquals(3, count($projects));
+        $this->assertCount(3, $projects);
 
         $this->assertProjects(array(
             'Project A Dist',
@@ -75,7 +75,7 @@ class FinderTest extends \PHPUnit_Framework_TestCase
         $finder->addWorkspace(self::getWorkspace());
         $projects = $finder->getProjects();
 
-        $this->assertEquals(3, count($projects));
+        $this->assertCount(3, $projects);
     }
 
     /**
@@ -95,7 +95,7 @@ class FinderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * depends testAddWorkspace
+     * @depends testAddWorkspace
      */
     public function testProjectsEmptyWorkspace()
     {
@@ -113,6 +113,20 @@ class FinderTest extends \PHPUnit_Framework_TestCase
         rmdir($tmp);
     }
 
+    /**
+     * @depends testProjectListInConfig
+     */
+    public function testProjectsAreAccessible()
+    {
+        $finder = new Finder();
+        $finder->addWorkspace(__DIR__.'/../../fixtures/workspace-b');
+
+        $projects = $finder->getProjects();
+
+        $this->assertArrayHasKey('Project D Dist', $projects);
+        $this->assertArrayHasKey('Project D Dist@develop', $projects);
+    }
+
     protected function assertProjects($expected, $actual)
     {
         $projects = array();
@@ -123,5 +137,7 @@ class FinderTest extends \PHPUnit_Framework_TestCase
         foreach ($expected as $eachProjectName) {
             $this->assertTrue(in_array($eachProjectName, $projects), sprintf('The project "%s" has been found.', $eachProjectName));
         }
+
+        $this->assertCount(count($actual), $expected);
     }
 }

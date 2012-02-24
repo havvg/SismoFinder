@@ -2,7 +2,7 @@
 
 [![Build Status](https://secure.travis-ci.org/havvg/SismoFinder.png)](http://travis-ci.org/havvg/SismoFinder)
 
-``SismoFinder`` is a simple wrapper around the configuration file of ``Sismo``.
+`SismoFinder` is a simple wrapper around the configuration file of `Sismo`.
 There are two major benefits when using SismoFinder as a replacement or addition to your Sismo configuration file.
 
 The actual project's configuration for a Sismo project is saved within the project itself.
@@ -26,6 +26,8 @@ See [INSTALL.md](INSTALL.md) for instructions on how to install `SismoFinder`.
 An example workspace at `/Users/havvg/Web Development/`.
 There is no need to include or require anything `Sismo` already provides, as the configuration is run inside of `Sismo`.
 For example, the `UniversalClassLoader` is defined.
+
+The projects `SismoFinder` retrieves are easily accessible for further modifications.
 
 ### Replacement
 
@@ -72,6 +74,30 @@ $projects[] = new Sismo\Project('Project D (local)', '/Users/havvg/Project D/', 
 return $projects;
 ```
 
+### Modifying projects
+
+The following example shows an easy way to modify found projects.
+
+```php
+<?php // ~/.sismo/config.php
+
+$loader = new Symfony\Component\ClassLoader\UniversalClassLoader();
+$loader->registerNamespaces(array(
+    'SismoFinder' => '/Users/havvg/Web Development/SismoFinder/src',
+));
+$loader->register();
+
+$finder = new \SismoFinder\Finder();
+$finder->addWorkspace('/Users/havvg/Web Development');
+
+$projects = $finder->getProjects();
+
+// Modify a single project
+$projects['php-cctrl']->addNotifier(new Sismo\GrowlNotifier(''));
+
+return $projects;
+```
+
 ## Example SismoFinder configuration file
 
 This is a very basic example, how a distributed project configuration may look like.
@@ -89,9 +115,9 @@ see [Sismo README](https://github.com/fabpot/Sismo/blob/master/README.rst) for m
 <?php // /path/to/workspace/your-project/sismo.config.php
 
 $notifier = new Sismo\DBusNotifier();
- 
+
 $graceName = 'grace';
- 
+
 $grace = new Sismo\Project($graceName);
 $grace->setRepository('/home/cordoval/sites-2/'.$graceName);
 $grace->setBranch('develop');
@@ -99,6 +125,6 @@ $grace->setCommand('/home/cordoval/sites-2/'.$graceName.'/sismo'); // custom com
 $grace->setSlug($graceName);
 $grace->setUrlPattern('http://localhost:8000/?p=.git;a=commitdiff;h=%commit%'); // for git instaweb
 $grace->addNotifier($notifier);
- 
+
 return $grace;
 ```

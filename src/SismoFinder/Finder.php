@@ -90,6 +90,11 @@ class Finder
             }
         }
 
+        foreach ($projects as $key => $project) {
+            $projects[$project->getName()] = $project;
+            unset($projects[$key]);
+        }
+
         return $projects;
     }
 
