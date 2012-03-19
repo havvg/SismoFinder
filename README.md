@@ -21,6 +21,19 @@ See [INSTALL.md](INSTALL.md) for instructions on how to install `SismoFinder`.
 * Package the `sismo.config.php.dist` within your project.
 * Add the `sismo.config.php` to your `.gitignore`.
 
+### Example SismoFinder configuration file
+
+This is a very basic example, how a distributed project configuration may look like,
+see [Sismo README](https://github.com/fabpot/Sismo/blob/master/README.rst) for more details.
+
+```php
+<?php // /path/to/workspace/your-project/sismo.config.php.dist
+
+return new Sismo\Project('Your Project (local)', __DIR__);
+```
+
+For more configuration examples take a look into the `doc` folder.
+
 ## Usage
 
 An example workspace at `/Users/havvg/Web Development/`.
@@ -40,7 +53,7 @@ $loader->registerNamespaces(array(
 ));
 $loader->register();
 
-$finder = new \SismoFinder\Finder();
+$finder = new SismoFinder\Finder();
 $finder->addWorkspace('/Users/havvg/Web Development');
 
 return $finder->getProjects();
@@ -58,12 +71,9 @@ $loader->registerNamespaces(array(
 $loader->register();
 
 // create a Growl notifier (for OSX)
-$notifier = new Sismo\GrowlNotifier('');
+$notifier = new Sismo\Notifier\GrowlNotifier('');
 
-// create a DBus notifier (for Linux)
-$notifier = new Sismo\DBusNotifier();
-
-$finder = new \SismoFinder\Finder();
+$finder = new SismoFinder\Finder();
 $finder->addWorkspace('/Users/havvg/Web Development');
 
 $projects = $finder->getProjects();
@@ -74,57 +84,4 @@ $projects[] = new Sismo\Project('Project D (local)', '/Users/havvg/Project D/', 
 return $projects;
 ```
 
-### Modifying projects
-
-The following example shows an easy way to modify found projects.
-
-```php
-<?php // ~/.sismo/config.php
-
-$loader = new Symfony\Component\ClassLoader\UniversalClassLoader();
-$loader->registerNamespaces(array(
-    'SismoFinder' => '/Users/havvg/Web Development/SismoFinder/src',
-));
-$loader->register();
-
-$finder = new \SismoFinder\Finder();
-$finder->addWorkspace('/Users/havvg/Web Development');
-
-$projects = $finder->getProjects();
-
-// Modify a single project
-$projects['php-cctrl']->addNotifier(new Sismo\GrowlNotifier(''));
-
-return $projects;
-```
-
-## Example SismoFinder configuration file
-
-This is a very basic example, how a distributed project configuration may look like.
-
-```php
-<?php // /path/to/workspace/your-project/sismo.config.php.dist
-
-return new Sismo\Project('Your Project (local)', __DIR__);
-```
-
-For an example of a more elaborated custom configuration see below,
-see [Sismo README](https://github.com/fabpot/Sismo/blob/master/README.rst) for more details.
-
-```php
-<?php // /path/to/workspace/your-project/sismo.config.php
-
-$notifier = new Sismo\DBusNotifier();
-
-$graceName = 'grace';
-
-$grace = new Sismo\Project($graceName);
-$grace->setRepository('/home/cordoval/sites-2/'.$graceName);
-$grace->setBranch('develop');
-$grace->setCommand('/home/cordoval/sites-2/'.$graceName.'/sismo'); // custom command script
-$grace->setSlug($graceName);
-$grace->setUrlPattern('http://localhost:8000/?p=.git;a=commitdiff;h=%commit%'); // for git instaweb
-$grace->addNotifier($notifier);
-
-return $grace;
-```
+For more usage examples, see the examples in the `doc` folder.
